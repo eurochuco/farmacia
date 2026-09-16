@@ -207,21 +207,43 @@
     justify-content: center;
 }
 
-/* ===== Responsividade ===== */
+/* ===== Responsividade do Header ===== */
 @media (max-width: 900px) {
     .header {
         padding: 10px 16px;
         flex-wrap: wrap;
         height: auto;
-        gap: 10px;
+        gap: 8px;
+        row-gap: 10px;
     }
 
-    .SearchBar input {
-        width: 160px;
+    .logo-container {
+        order: 1;
     }
 
     .menu {
-        gap: 2px;
+        order: 2;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .SearchBar {
+        order: 3;
+        width: 100%;
+    }
+
+    .SearchBar input {
+        width: 100%;
+    }
+
+    .header .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo-nome {
+        font-size: 17px;
     }
 
     .menu li a {
@@ -231,14 +253,12 @@
 }
 
 @media (max-width: 600px) {
-    .SearchBar {
-        order: 3;
-        width: 100%;
-        margin-top: 8px;
+    .header {
+        padding: 10px 14px;
     }
 
-    .SearchBar input {
-        width: 100%;
+    .logo-nome {
+        font-size: 16px;
     }
 }
 
@@ -272,11 +292,32 @@
     z-index: 1;
 }
 
+/* Gradiente escuro por cima da imagem, mais forte na base */
+.slide::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.45) 25%,
+        rgba(0, 0, 0, 0.15) 50%,
+        rgba(0, 0, 0, 0) 70%
+    );
+    z-index: 2; /* fica acima da imagem, abaixo do texto */
+    pointer-events: none; /* não bloqueia cliques */
+}
+
 .slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* O slide visível ganha prioridade e opacidade total */
@@ -292,10 +333,8 @@
     left: 60px;
     color: #ffffff;
     max-width: 500px;
-    z-index: 3;
+    z-index: 3; /* fica acima do gradiente */
     text-align: left;
-
-    /*estado inicial: invisivel e ligeiramente rebaixado*/
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
@@ -304,7 +343,6 @@
 
 .caption h1 {
     font-size: 74px;
-    line-height: 10px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     margin-bottom: 22px;
     line-height: 1;
@@ -326,8 +364,75 @@
     transition-delay: 0.6s;
 }
 
-/* navegar por categorias */
-/* navegar por categorias */
+/* ===== Responsividade do Hero/Carrossel ===== */
+@media (max-width: 900px) {
+    .carocel {
+        height: 450px;
+    }
+
+    .caption {
+        left: 24px;
+        right: auto;
+        bottom: 40px;
+        max-width: 75%;
+    }
+
+    .caption h1 {
+        font-size: 40px;
+        line-height: 1.1;
+        margin-bottom: 12px;
+    }
+
+    .caption p {
+        font-size: 18px;
+        margin-bottom: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .carocel {
+        height: 380px;
+    }
+
+    .caption {
+        left: 20px;
+        right: auto;
+        bottom: 25px;
+        max-width: 80%;
+    }
+
+    .caption h1 {
+        font-size: 26px;
+        line-height: 1.15;
+        margin-bottom: 8px;
+    }
+
+    .caption p {
+        font-size: 14px;
+        line-height: 1.35;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .carocel {
+        height: 320px;
+    }
+
+    .caption {
+        max-width: 82%;
+    }
+
+    .caption h1 {
+        font-size: 22px;
+    }
+
+    .caption p {
+        font-size: 13px;
+    }
+}
+
+/* ===== Navegar por Categorias ===== */
 .carrossel-categorias {
     width: 100%;
     max-width: 1200px;
@@ -551,6 +656,10 @@
 }
 
 @media (max-width: 600px) {
+    .promocoes-titulo {
+        font-size: 24px;
+    }
+
     .promo-slide {
         flex: 0 0 100%;
         /* 1 slide visível em mobile */
@@ -973,27 +1082,6 @@
     }
 }
 
-.patrocinados-header {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.patrocinados-header .text {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.patrocinados-setas {
-    position: absolute;
-    right: 0;
-    display: flex;
-    gap: 10px;
-}
-
 /* ===== Footer ===== */
 .footer {
     width: 100%;
@@ -1174,9 +1262,7 @@
     margin: 0 0 6px;
 }
 
-/* Responsividade */
 /* ===== Correção de sobreposição no header de categorias/marcas/patrocinados em telas pequenas ===== */
-
 @media (max-width: 700px) {
 
     .categorias-header,
@@ -1206,5 +1292,28 @@
     .patrocinados-header h1 {
         font-size: 22px;
         /* reduz um pouco o título para não ficar apertado */
+    }
+}
+
+/* ===== Responsividade do Footer ===== */
+@media (max-width: 900px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-baixo {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-contactos {
+        text-align: center;
     }
 }
