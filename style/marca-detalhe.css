@@ -1,0 +1,1188 @@
+/* =====================================================
+   marca-detalhe.css
+   Todas as classes começam por "marca-" para não
+   entrar em conflito com home.css / categorias.css
+   ===================================================== */
+
+:root {
+    --m-verde: #25D366;
+    --m-verde-hover: #1fbb5b;
+    --m-verde-escuro: #128C4A;
+    --m-verde-claro: #e6f9ee;
+    --m-texto-btn: #06331a;
+    /* texto sobre o verde #25D366 (muda para #fff se preferires) */
+    --m-ink: #141a1f;
+    --m-muted: #68737b;
+    --m-line: #e8ecef;
+    --m-soft: #f3f5f6;
+    --m-promo: #e8581c;
+
+    /* cores da marca (o JS altera estas 3 conforme a marca aberta) */
+    --m-bc: #25D366;
+    --m-bd: #128C4A;
+    --m-bt: #e6f9ee;
+}
+
+:where(.marca-pagina) *,
+:where(.marca-pagina) *::before,
+:where(.marca-pagina) *::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.marca-pagina {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--m-ink);
+    background: #fff;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+}
+
+:where(.marca-pagina) img {
+    display: block;
+    max-width: 100%;
+}
+
+:where(.marca-pagina) a {
+    color: inherit;
+    text-decoration: none;
+}
+
+:where(.marca-pagina) button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+:where(.marca-pagina) svg {
+    display: block;
+}
+
+:where(.marca-pagina) :focus-visible {
+    outline: 3px solid var(--m-verde-escuro);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.marca-wrap {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+.marca-so-mobile {
+    display: none;
+}
+
+/* ---------- cabeçalho ---------- */
+.marca-topo {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: #fff;
+    border-bottom: 1px solid var(--m-line);
+}
+
+.marca-topo-in {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.marca-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--m-verde);
+    letter-spacing: -.01em;
+}
+
+.marca-pesquisa {
+    flex: 0 1 400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    background: var(--m-soft);
+    border: 1px solid var(--m-line);
+    border-radius: 999px;
+    padding: 4px 4px 4px 22px;
+}
+
+.marca-pesquisa input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    outline: 0;
+    padding: 10px 0;
+}
+
+.marca-pesquisa input::placeholder {
+    color: #8a949b;
+}
+
+.marca-pesquisa button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--m-verde);
+    color: var(--m-texto-btn);
+    display: grid;
+    place-items: center;
+    flex: none;
+}
+
+.marca-pesquisa button:hover {
+    background: var(--m-verde-hover);
+}
+
+.marca-nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    font-weight: 600;
+}
+
+.marca-nav a:hover {
+    color: var(--m-verde-escuro);
+}
+
+.marca-carrinho {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+}
+
+.marca-carrinho:hover {
+    background: var(--m-soft);
+}
+
+.marca-carrinho-n {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--m-promo);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+.marca-carrinho-n[hidden] {
+    display: none;
+}
+
+/* ---------- banner ---------- */
+.marca-banner {
+    background: linear-gradient(100deg, var(--m-bt) 0%, #fff 140%);
+    overflow: hidden;
+}
+
+.marca-banner.tem-imagem {
+    background: none;
+}
+
+.marca-banner-img {
+    width: 100%;
+    height: auto;
+    max-height: 390px;
+    object-fit: cover;
+}
+
+.marca-banner-in {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 0 32px;
+    min-height: 340px;
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+}
+
+.marca-banner-nome {
+    flex: 0 0 30%;
+    align-self: center;
+    font-size: clamp(38px, 6vw, 78px);
+    font-weight: 800;
+    letter-spacing: -.035em;
+    line-height: 1;
+    color: var(--m-bd);
+    padding: 32px 0;
+}
+
+.marca-banner-prods {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 6px;
+}
+
+.marca-banner-prods img {
+    flex: none;
+    height: var(--h);
+    width: auto;
+    margin-left: -52px;
+    mix-blend-mode: multiply;
+}
+
+/* ---------- identificação da marca ---------- */
+.marca-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 44px 0 40px;
+    border-bottom: 1px solid var(--m-line);
+}
+
+.marca-logo-circulo {
+    flex: none;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 1px solid var(--m-line);
+    background: #fff;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.marca-logo-circulo img {
+    width: 68%;
+    height: 68%;
+    object-fit: contain;
+}
+
+.marca-monograma {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: var(--m-bt);
+    color: var(--m-bd);
+    font-weight: 800;
+    font-size: 44px;
+    letter-spacing: -.03em;
+}
+
+.marca-titulo {
+    font-size: clamp(30px, 4vw, 46px);
+    letter-spacing: -.025em;
+    line-height: 1.1;
+}
+
+.marca-desc {
+    color: var(--m-muted);
+    font-size: 20px;
+    line-height: 1.5;
+    max-width: 58ch;
+    margin-top: 10px;
+}
+
+/* ---------- vitrine ---------- */
+.marca-loja {
+    padding: 56px 0 96px;
+    scroll-margin-top: 80px;
+}
+
+.marca-loja-topo h2 {
+    font-size: 34px;
+    letter-spacing: -.02em;
+}
+
+.marca-loja-topo p {
+    color: var(--m-muted);
+    font-size: 18px;
+    margin-top: 6px;
+}
+
+.marca-loja-grid {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+    align-items: start;
+}
+
+/* filtros */
+.marca-filtros {
+    border: 1px solid var(--m-line);
+    border-radius: 20px;
+    padding: 26px 28px;
+    background: #fff;
+    position: sticky;
+    top: 92px;
+    max-height: calc(100vh - 110px);
+    overflow: auto;
+}
+
+.marca-filtros-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--m-line);
+}
+
+.marca-filtros-topo h2 {
+    font-size: 22px;
+    letter-spacing: -.01em;
+}
+
+.marca-limpar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fdecec;
+    color: #d23b3b;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 7px 14px;
+    border-radius: 999px;
+}
+
+.marca-limpar:hover {
+    background: #fbdcdc;
+}
+
+.marca-filtros-fechar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    place-items: center;
+}
+
+.marca-sec {
+    border-bottom: 1px solid var(--m-line);
+}
+
+.marca-sec:last-child {
+    border-bottom: 0;
+}
+
+.marca-sec summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.marca-sec summary::-webkit-details-marker {
+    display: none;
+}
+
+.marca-sec summary::after {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--m-muted);
+    border-bottom: 2px solid var(--m-muted);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform .2s;
+}
+
+.marca-sec[open] summary::after {
+    transform: rotate(-135deg) translate(-2px, -2px);
+}
+
+.marca-sec-corpo {
+    padding: 0 0 20px;
+    display: grid;
+    gap: 12px;
+}
+
+.marca-faixa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.marca-faixa input {
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+    border: 1px solid var(--m-line);
+    background: var(--m-soft);
+    border-radius: 10px;
+    padding: 0 12px;
+    font: inherit;
+}
+
+.marca-faixa input:focus {
+    background: #fff;
+}
+
+.marca-opcao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.marca-opcao input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--m-verde);
+    flex: none;
+}
+
+.marca-opcao .c {
+    margin-left: auto;
+    color: var(--m-muted);
+    font-size: 13px;
+}
+
+.marca-link {
+    display: block;
+    padding: 6px 0;
+    font-size: 15px;
+}
+
+.marca-link:hover {
+    color: var(--m-verde-escuro);
+}
+
+.marca-link[aria-current] {
+    font-weight: 700;
+    color: var(--m-verde-escuro);
+}
+
+/* barra de ferramentas */
+.marca-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    min-height: 54px;
+}
+
+.marca-pager {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.marca-pager:empty {
+    display: none;
+}
+
+.marca-pg {
+    min-width: 46px;
+    height: 46px;
+    padding: 0 10px;
+    border: 1px solid var(--m-line);
+    border-radius: 10px;
+    background: #fff;
+    font-weight: 500;
+    display: grid;
+    place-items: center;
+}
+
+.marca-pg:hover:not([disabled]):not([aria-current]) {
+    background: var(--m-soft);
+}
+
+.marca-pg[aria-current] {
+    background: var(--m-verde);
+    border-color: var(--m-verde);
+    color: var(--m-texto-btn);
+    font-weight: 700;
+}
+
+.marca-pg[disabled] {
+    opacity: .4;
+    cursor: default;
+}
+
+.marca-pg-pontos {
+    padding: 0 6px;
+    color: var(--m-muted);
+}
+
+.marca-ferramentas {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-left: auto;
+}
+
+.marca-ordenar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 52px;
+    padding: 0 14px 0 20px;
+    border: 1px solid var(--m-line);
+    border-radius: 12px;
+    font-weight: 600;
+    background: #fff;
+}
+
+.marca-ordenar select {
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 400;
+    color: var(--m-muted);
+    outline: 0;
+    cursor: pointer;
+    max-width: 150px;
+}
+
+.marca-vistas {
+    display: flex;
+    border: 1px solid var(--m-line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.marca-vistas button {
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    color: var(--m-muted);
+}
+
+.marca-vistas button[aria-pressed="true"] {
+    background: var(--m-verde);
+    color: var(--m-texto-btn);
+}
+
+.marca-btn-filtros {
+    height: 52px;
+    padding: 0 18px;
+    border: 1px solid var(--m-line);
+    border-radius: 12px;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    background: #fff;
+}
+
+/* chips */
+.marca-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.marca-chips:empty {
+    display: none;
+}
+
+.marca-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--m-verde-claro);
+    color: var(--m-verde-escuro);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 999px;
+}
+
+.marca-chip:hover {
+    background: #d2f4e0;
+}
+
+/* cartões de produto */
+.marca-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 22px;
+}
+
+.marca-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--m-line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    transition: box-shadow .2s;
+}
+
+.marca-card:hover {
+    box-shadow: 0 12px 30px rgba(20, 26, 31, .10);
+}
+
+.marca-card-img {
+    position: relative;
+    background: #f6f7f8;
+    aspect-ratio: 1 / .94;
+}
+
+.marca-card-pic {
+    display: block;
+    height: 100%;
+}
+
+.marca-card-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 20px;
+    mix-blend-mode: multiply;
+}
+
+.marca-card-acoes {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.marca-icone-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--m-line);
+    display: grid;
+    place-items: center;
+    color: var(--m-ink);
+}
+
+.marca-icone-btn:hover {
+    background: var(--m-soft);
+}
+
+.marca-icone-btn.is-ativo {
+    color: #e0245e;
+}
+
+.marca-icone-btn.is-ativo svg {
+    fill: currentColor;
+}
+
+.marca-etiqueta {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    z-index: 2;
+    background: var(--m-promo);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+.marca-card-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 16px 16px 18px;
+}
+
+.marca-card-nome {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.35;
+    min-height: 2.7em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.marca-card-nome a:hover {
+    color: var(--m-verde-escuro);
+}
+
+.marca-card-tipo {
+    color: var(--m-muted);
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.marca-preco {
+    margin-top: auto;
+    padding: 16px 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 2px 8px;
+}
+
+.marca-preco-de {
+    font-size: 12px;
+    color: var(--m-muted);
+    font-weight: 500;
+    width: 100%;
+}
+
+.marca-preco-atual {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.015em;
+}
+
+.marca-preco-moeda {
+    font-size: .68em;
+    font-weight: 600;
+    margin-left: 3px;
+}
+
+.marca-preco s {
+    color: var(--m-muted);
+    font-size: 14px;
+}
+
+.marca-btns {
+    display: grid;
+    gap: 10px;
+}
+
+.marca-btn {
+    min-height: 46px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.marca-btn-cinza {
+    background: #eef0f2;
+}
+
+.marca-btn-cinza:hover {
+    background: #e2e5e8;
+}
+
+.marca-btn-verde {
+    background: var(--m-verde);
+    color: var(--m-texto-btn);
+    font-weight: 700;
+    transition: background .15s;
+}
+
+.marca-btn-verde:hover {
+    background: var(--m-verde-hover);
+}
+
+.marca-btn-verde.is-feito {
+    background: var(--m-verde-escuro);
+    color: #fff;
+}
+
+/* vista em lista */
+.marca-grid.is-lista {
+    grid-template-columns: 1fr;
+}
+
+.is-lista .marca-card {
+    flex-direction: row;
+}
+
+.is-lista .marca-card-img {
+    width: 240px;
+    flex: none;
+    aspect-ratio: auto;
+    min-height: 220px;
+}
+
+.is-lista .marca-card-info {
+    padding: 20px 24px;
+}
+
+.is-lista .marca-card-nome {
+    min-height: 0;
+    font-size: 19px;
+}
+
+.is-lista .marca-preco {
+    margin-top: 14px;
+}
+
+.is-lista .marca-btns {
+    grid-template-columns: auto 1fr;
+    max-width: 460px;
+}
+
+.marca-vazio {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 64px 16px;
+    border: 1px dashed var(--m-line);
+    border-radius: 16px;
+}
+
+.marca-vazio h3 {
+    font-size: 20px;
+}
+
+.marca-vazio p {
+    color: var(--m-muted);
+    margin: 8px 0 20px;
+}
+
+.marca-vazio .marca-btn {
+    display: inline-flex;
+    background: var(--m-verde);
+    color: var(--m-texto-btn);
+    padding: 0 26px;
+    font-weight: 700;
+}
+
+.marca-pager-baixo {
+    justify-content: center;
+    margin-top: 36px;
+}
+
+/* lista de todas as marcas (quando abres sem ?marca=) */
+.marca-lista-pagina {
+    padding: 56px 32px 96px;
+}
+
+.marca-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 36px 20px;
+    margin-top: 40px;
+}
+
+.marca-lista-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.marca-lista-item .marca-logo-circulo {
+    width: 130px;
+    height: 130px;
+    transition: box-shadow .2s;
+}
+
+.marca-lista-item:hover .marca-logo-circulo {
+    box-shadow: 0 8px 24px rgba(20, 26, 31, .12);
+}
+
+/* aviso + fundo escuro */
+.marca-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    pointer-events: none;
+    background: #141a1f;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 80;
+    max-width: calc(100vw - 32px);
+    transition: opacity .2s, transform .2s;
+}
+
+.marca-toast.is-ativo {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+}
+
+.marca-toast a {
+    color: var(--m-verde);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.marca-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 15, 20, .45);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+}
+
+.marca-overlay.is-ativo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width: 1024px) {
+    .marca-topo-in {
+        flex-wrap: wrap;
+        gap: 12px 16px;
+        padding: 12px 20px;
+    }
+
+    .marca-pesquisa {
+        order: 3;
+        flex: 1 1 100%;
+        margin: 0;
+    }
+
+    .marca-nav {
+        display: none;
+    }
+
+    .marca-carrinho {
+        margin-left: auto;
+    }
+
+    .marca-wrap {
+        padding: 0 20px;
+    }
+
+    .marca-banner-in {
+        padding: 0 20px;
+        min-height: 280px;
+    }
+
+    .marca-banner-prods img {
+        height: calc(var(--h) * .78);
+    }
+
+    .marca-banner-prods img:nth-child(n+5) {
+        display: none;
+    }
+
+    .marca-loja-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        margin-top: 28px;
+    }
+
+    .marca-so-mobile {
+        display: inline-flex;
+    }
+
+    .marca-filtros-fechar.marca-so-mobile {
+        display: grid;
+    }
+
+    .marca-filtros {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: min(360px, 92vw);
+        max-height: none;
+        border-radius: 0 20px 20px 0;
+        z-index: 60;
+        transform: translateX(-105%);
+        visibility: hidden;
+        transition: transform .25s, visibility 0s .25s;
+    }
+
+    .marca-filtros.is-aberto {
+        transform: none;
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    .marca-lista-pagina {
+        padding: 40px 20px 72px;
+    }
+}
+
+@media (max-width: 680px) {
+    .marca-banner-in {
+        min-height: 220px;
+    }
+
+    .marca-banner-nome {
+        display: none;
+    }
+
+    .marca-banner-prods {
+        justify-content: center;
+    }
+
+    .marca-banner-prods img {
+        margin-left: -30px;
+        height: calc(var(--h) * .6);
+    }
+
+    .marca-banner-prods img:nth-child(n+4) {
+        display: none;
+    }
+
+    .marca-cabecalho {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 32px 0 30px;
+    }
+
+    .marca-logo-circulo {
+        width: 104px;
+        height: 104px;
+    }
+
+    .marca-monograma {
+        font-size: 32px;
+    }
+
+    .marca-desc {
+        font-size: 17px;
+    }
+
+    .marca-loja {
+        padding: 40px 0 72px;
+    }
+
+    .marca-loja-topo h2 {
+        font-size: 28px;
+    }
+
+    .marca-barra {
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    #marca-pager-topo {
+        display: none;
+    }
+
+    .marca-ferramentas {
+        flex: 1;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+    .marca-btn-filtros {
+        flex: none;
+    }
+
+    .marca-ordenar {
+        flex: 1;
+        min-width: 0;
+        padding: 0 12px;
+        font-size: 14px;
+    }
+
+    .marca-ordenar select {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .marca-icone-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .marca-card-acoes {
+        top: 8px;
+        right: 8px;
+        gap: 6px;
+    }
+
+    .marca-vistas {
+        display: none;
+    }
+
+    .marca-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .marca-card-info {
+        padding: 12px 12px 14px;
+    }
+
+    .marca-card-nome {
+        font-size: 15px;
+    }
+
+    .marca-preco-atual {
+        font-size: 18px;
+    }
+
+    .marca-btn {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .marca-btn svg {
+        display: none;
+    }
+
+    .marca-grid.is-lista {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .is-lista .marca-card {
+        flex-direction: column;
+    }
+
+    .is-lista .marca-card-img {
+        width: auto;
+        min-height: 0;
+        aspect-ratio: 1 / .94;
+    }
+
+    .is-lista .marca-btns {
+        grid-template-columns: 1fr;
+        max-width: none;
+    }
+
+    .marca-pg {
+        min-width: 40px;
+        height: 40px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .marca-pagina * {
+        transition: none !important;
+    }
+}

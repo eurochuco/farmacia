@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorias | Farmácia</title>
-    <link rel="stylesheet" href="../style/categorias.css">
+    <title id="pageTitle">Promoção | Farmácia</title>
+    <link rel="stylesheet" href="../style/promo-detalhe.css">
 </head>
 <body>
 
@@ -36,117 +36,60 @@
         </ul>
     </div>
 
-    <!-- Página de Categorias -->
-    <section class="pagina-categorias">
+    <!-- Breadcrumb / voltar -->
+    <div class="promo-breadcrumb">
+        <a href="index.html" class="voltar-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Voltar à página inicial
+        </a>
+    </div>
 
-        <div class="pagina-categorias-topo">
-            <h1>Todas as <span>Categorias</span></h1>
-            <p>Escolhe a categoria que procuras e descobre os nossos produtos</p>
-        </div>
+    <!-- Conteúdo da promoção -->
+    <section class="promo-detalhe">
 
-        <div class="grid-categorias">
+        <div class="promo-detalhe-grid">
 
-            <a href="categoria-detalhe.html?categoryId=18" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/med.jpg" alt="Medicamentos">
-                </div>
-                <div class="bloco-info">
-                    <h3>Medicamentos</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
+            <!-- Imagem grande da promoção -->
+            <div class="promo-detalhe-imagem">
+                <img id="promoImagem" src="" alt="">
+                <span class="promo-desconto-badge" id="promoDescontoBadge"></span>
+            </div>
 
-            <a href="categoria-detalhe.html?categoryId=11" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/nut.jpg" alt="Nutrição">
-                </div>
-                <div class="bloco-info">
-                    <h3>Nutrição</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
+            <!-- Informações da promoção -->
+            <div class="promo-detalhe-info">
+                <span class="promo-tag">Promoção</span>
+                <h1 id="promoTitulo">Carregando...</h1>
+                <p class="promo-descricao" id="promoDescricao"></p>
 
-            <a href="categoria-detalhe.html?categoryId=17" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/ani.jpg" alt="Saúde Animal">
+                <div class="promo-preco-box">
+                    <span class="promo-a-partir-de">A partir de</span>
+                    <span class="promo-preco" id="promoPreco"></span>
                 </div>
-                <div class="bloco-info">
-                    <h3>Saúde Animal</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
 
-            <a href="categoria-detalhe.html?categoryId=6" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/beb.jpg" alt="Bebé e Mamã">
-                </div>
-                <div class="bloco-info">
-                    <h3>Bebé e Mamã</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
-
-            <a href="categoria-detalhe.html?categoryId=4" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/bel.jpg" alt="Beleza e cuidados pessoais">
-                </div>
-                <div class="bloco-info">
-                    <h3>Beleza e Cuidados Pessoais</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
-
-            <a href="categoria-detalhe.html?categoryId=5" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/pro.jpg" alt="Protetor solar">
-                </div>
-                <div class="bloco-info">
-                    <h3>Protetor Solar</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
-
-            <a href="categoria-detalhe.html?categoryId=16" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/pri.jpg" alt="Primeiros socorros">
-                </div>
-                <div class="bloco-info">
-                    <h3>Primeiros Socorros</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
-
-            <a href="categoria-detalhe.html?categoryId=8" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/dem.jpg" alt="Dermatologia">
-                </div>
-                <div class="bloco-info">
-                    <h3>Dermatologia</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
-
-            <a href="categoria-detalhe.html?categoryId=10" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/conc.jpg" alt="Contracepção e sexualidade">
-                </div>
-                <div class="bloco-info">
-                    <h3>Contracepção e Sexualidade</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
-
-            <a href="categoria-detalhe.html?categoryId=13" class="bloco-categoria">
-                <div class="bloco-imagem">
-                    <img src="../style/img/des.jpg" alt="Desporto e Fitness">
-                </div>
-                <div class="bloco-info">
-                    <h3>Desporto e Fitness</h3>
-                    <span class="bloco-seta">→</span>
-                </div>
-            </a>
+                <ul class="promo-detalhes-lista" id="promoDetalhesLista">
+                    <!-- pontos adicionais gerados dinamicamente -->
+                </ul>
+            </div>
 
         </div>
+
+        <!-- Vitrine de produtos da promoção -->
+        <div class="promo-produtos-secao">
+            <h2>Produtos desta <span>promoção</span></h2>
+            <div class="promo-produtos-grid" id="promoProdutosGrid">
+                <!-- cards gerados dinamicamente aqui -->
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Mensagem de erro caso o promoId não exista -->
+    <section class="promo-erro" id="promoErro" style="display: none;">
+        <h2>Promoção não encontrada</h2>
+        <p>A promoção que procuras não existe ou já terminou.</p>
+        <a href="index.html" class="btn-voltar">Voltar à página inicial</a>
     </section>
 
     <!-- Footer -->
@@ -239,5 +182,6 @@
         </div>
     </footer>
 
+    <script src="../style/promo-detalhe.js"></script>
 </body>
 </html>

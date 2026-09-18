@@ -199,6 +199,84 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
         /* =========================================
+       ARRASTO MANUAL COM O CURSOR/DEDO
+    ========================================= */
+    let arrastoAtivo = false;
+    let posInicialX = 0;
+    let offsetInicialArrasto = 0;
+    let arrastoMoveuBastante = false;
+
+    function larguraSlideComGap() {
+        const larguraSlide = promoTrack.children[0].getBoundingClientRect().width;
+        const gap = parseFloat(getComputedStyle(promoTrack).gap) || 0;
+        return larguraSlide + gap;
+    }
+
+    function offsetAtualDoIndex() {
+        return -(larguraSlideComGap() * promoIndex);
+    }
+
+    // Avança/recua sem loop para trás (recua só até ao slide 0)
+    function anteriorPromo() {
+        if (isPromoJumping) return;
+        if (promoIndex <= 0) {
+            moverPara(0, true);
+            return;
+        }
+        promoIndex--;
+        moverPara(promoIndex, true);
+    }
+
+    promoTrack.addEventListener('pointerdown', (e) => {
+        arrastoAtivo = true;
+        arrastoMoveuBastante = false;
+        posInicialX = e.clientX;
+        offsetInicialArrasto = offsetAtualDoIndex();
+
+        promoTrack.classList.add('arrastando');
+        promoTrack.setPointerCapture(e.pointerId);
+    });
+
+    promoTrack.addEventListener('pointermove', (e) => {
+        if (!arrastoAtivo) return;
+
+        const delta = e.clientX - posInicialX;
+        if (Math.abs(delta) > 5) arrastoMoveuBastante = true;
+
+        promoTrack.style.transform = `translateX(${offsetInicialArrasto + delta}px)`;
+    });
+
+    function finalizarArrasto(e) {
+        if (!arrastoAtivo) return;
+        arrastoAtivo = false;
+        promoTrack.classList.remove('arrastando');
+
+        const delta = e.clientX - posInicialX;
+        const limiar = larguraSlideComGap() / 4;
+
+        if (delta <= -limiar) {
+            proximoPromo();
+        } else if (delta >= limiar) {
+            anteriorPromo();
+        } else {
+            moverPara(promoIndex, true);
+        }
+    }
+
+    promoTrack.addEventListener('pointerup', finalizarArrasto);
+    promoTrack.addEventListener('pointerleave', (e) => { if (arrastoAtivo) finalizarArrasto(e); });
+    promoTrack.addEventListener('pointercancel', (e) => { if (arrastoAtivo) finalizarArrasto(e); });
+
+    // Impede que um clique no link abra a promoção logo após um arrasto real
+    promoTrack.addEventListener('click', (e) => {
+        if (arrastoMoveuBastante) {
+            e.preventDefault();
+            e.stopPropagation();
+            arrastoMoveuBastante = false;
+        }
+    }, true);
+
+        /* =========================================
        LOOP INFINITO DAS MARCAS
     ========================================= */
 
