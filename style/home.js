@@ -88,197 +88,134 @@ document.addEventListener('DOMContentLoaded', function () {
         container.style.scrollBehavior = 'smooth';
     });
 
-        /* =========================================
-       CARROSSEL DE PROMOÇÕES — LOOP INFINITO (autoplay 5s)
-    ========================================= */
+    /* =========================================
+PROMOÇÕES — Loop infinito + autoplay 5s
+(mesma lógica dos Produtos Patrocinados)
+========================================= */
 
     const promoTrack = document.getElementById('promoTrack');
     const promoDotsContainer = document.getElementById('promoDots');
-    const originalPromoSlides = Array.from(promoTrack.children);
-    const totalOriginais = originalPromoSlides.length;
 
-    let slidesVisiveis = getSlidesVisiveis();
-    let promoIndex = 0; // sempre relativo aos slides ORIGINAIS
+    // 1. Clona todos os slides originais e adiciona no fim
+    const originalPromoSlides = Array.from(promoTrack.children);
+    originalPromoSlides.forEach(item => {
+        const clone = item.cloneNode(true);
+        promoTrack.appendChild(clone);
+    });
+
+    // 2. Clona novamente e adiciona no início
+    originalPromoSlides.slice().reverse().forEach(item => {
+        const clone = item.cloneNode(true);
+        promoTrack.insertBefore(clone, promoTrack.firstChild);
+    });
+
+    // 3. Calcula a largura de um "bloco" original
+    function getPromoBlockWidth() {
+        const slideWidth = originalPromoSlides[0].getBoundingClientRect().width;
+        const gap = parseFloat(getComputedStyle(promoTrack).gap) || 0;
+        return (slideWidth + gap) * originalPromoSlides.length;
+    }
+
+    let promoBlockWidth = getPromoBlockWidth();
+
+    // 4. Posiciona o scroll no bloco do meio
+    promoTrack.scrollLeft = promoBlockWidth;
+
+    // 5. Teleporte invisível ao chegar nas pontas
     let isPromoJumping = false;
 
-    function getSlidesVisiveis() {
-        if (window.innerWidth <= 600) return 1;
-        if (window.innerWidth <= 900) return 2;
-        return 3;
-    }
+    function checkPromoLoop() {
+        if (isPromoJumping) return;
 
-    // Clona os primeiros "slidesVisiveis" slides e coloca-os no fim,
-    // para que ao chegar ao fim ainda existam slides seguintes para mostrar
-    function clonarSlides() {
-        // remove clones antigos, se existirem (útil ao redimensionar a janela)
-        promoTrack.querySelectorAll('.promo-slide.clone').forEach(el => el.remove());
-
-        for (let i = 0; i < slidesVisiveis; i++) {
-            const clone = originalPromoSlides[i].cloneNode(true);
-            clone.classList.add('clone');
-            promoTrack.appendChild(clone);
+        if (promoTrack.scrollLeft >= promoBlockWidth * 2) {
+            isPromoJumping = true;
+            promoTrack.style.scrollBehavior = 'auto';
+            promoTrack.scrollLeft -= promoBlockWidth;
+            requestAnimationFrame(() => {
+                promoTrack.style.scrollBehavior = 'smooth';
+                isPromoJumping = false;
+            });
         }
+
+        if (promoTrack.scrollLeft <= 0) {
+            isPromoJumping = true;
+            promoTrack.style.scrollBehavior = 'auto';
+            promoTrack.scrollLeft += promoBlockWidth;
+            requestAnimationFrame(() => {
+                promoTrack.style.scrollBehavior = 'smooth';
+                isPromoJumping = false;
+            });
+        }
+
+        atualizarDotsPorScroll();
     }
 
+    promoTrack.addEventListener('scroll', checkPromoLoop);
+
+    // 6. Largura de avanço (1 slide)
+    function getPromoScrollStep() {
+        const slide = promoTrack.querySelector('.promo-slide');
+        const gap = parseFloat(getComputedStyle(promoTrack).gap) || 0;
+        return slide.getBoundingClientRect().width + gap;
+    }
+
+    // 7. Dots — criação e clique
     function criarDots() {
         promoDotsContainer.innerHTML = '';
-        for (let i = 0; i < totalOriginais; i++) {
+        for (let i = 0; i < originalPromoSlides.length; i++) {
             const dot = document.createElement('div');
             dot.classList.add('promo-dot');
             if (i === 0) dot.classList.add('ativo');
 
             dot.addEventListener('click', () => {
-                promoIndex = i;
-                moverPara(promoIndex, true);
+                const destino = promoBlockWidth + i * getPromoScrollStep();
+                promoTrack.scrollTo({ left: destino, behavior: 'smooth' });
+                reiniciarAutoplayPromo();
             });
 
             promoDotsContainer.appendChild(dot);
         }
     }
 
-    function atualizarDots() {
+    function atualizarDotsPorScroll() {
+        const step = getPromoScrollStep();
+        const posicaoRelativa = promoTrack.scrollLeft - promoBlockWidth;
+        let indiceAtual = Math.round(posicaoRelativa / step) % originalPromoSlides.length;
+        if (indiceAtual < 0) indiceAtual += originalPromoSlides.length;
+
         const dots = document.querySelectorAll('.promo-dot');
-        dots.forEach((dot, i) => dot.classList.toggle('ativo', i === promoIndex));
+        dots.forEach((dot, i) => dot.classList.toggle('ativo', i === indiceAtual));
     }
 
-    // Move o track para o slide de índice "index" (com ou sem animação)
-    function moverPara(index, animado = true) {
-        const larguraSlide = promoTrack.children[0].getBoundingClientRect().width;
-        const gap = parseFloat(getComputedStyle(promoTrack).gap) || 0;
-        const deslocamento = (larguraSlide + gap) * index;
+    criarDots();
 
-        promoTrack.style.transition = animado ? 'transform 0.6s ease-in-out' : 'none';
-        promoTrack.style.transform = `translateX(-${deslocamento}px)`;
+    // 8. Autoplay a cada 5 segundos
+    let autoplayPromo = setInterval(avancarPromoAuto, 5000);
 
-        atualizarDots();
+    function avancarPromoAuto() {
+        promoTrack.scrollBy({
+            left: getPromoScrollStep(),
+            behavior: 'smooth'
+        });
     }
 
-    // Avança sempre em loop infinito, da esquerda para a direita
-    function proximoPromo() {
-        if (isPromoJumping) return;
-
-        promoIndex++;
-        moverPara(promoIndex, true);
-
-        // Quando chega ao último slide original (entrando na zona dos clones),
-        // espera a animação acabar e "salta" de volta ao início sem se notar
-        if (promoIndex >= totalOriginais) {
-            isPromoJumping = true;
-
-            promoTrack.addEventListener('transitionend', function handler() {
-                promoTrack.removeEventListener('transitionend', handler);
-                promoIndex = 0;
-                moverPara(promoIndex, false); // sem animação, salto instantâneo
-                isPromoJumping = false;
-            });
-        }
+    // Reinicia o autoplay sempre que o utilizador clica num dot
+    function reiniciarAutoplayPromo() {
+        clearInterval(autoplayPromo);
+        autoplayPromo = setInterval(avancarPromoAuto, 5000);
     }
 
-    // Inicializa tudo
-    function iniciarPromoCarrossel() {
-        clonarSlides();
-        criarDots();
-        promoIndex = 0;
-        moverPara(promoIndex, false);
-    }
-
-    iniciarPromoCarrossel();
-
-    // Autoplay a cada 5 segundos
-    setInterval(proximoPromo, 5000);
-
-    // Recalcula tudo se a janela mudar de tamanho
+    // 9. Recalcula tudo se a janela mudar de tamanho
     window.addEventListener('resize', () => {
-        const novoSlidesVisiveis = getSlidesVisiveis();
-        if (novoSlidesVisiveis !== slidesVisiveis) {
-            slidesVisiveis = novoSlidesVisiveis;
-            iniciarPromoCarrossel();
-        } else {
-            moverPara(promoIndex, false);
-        }
+        promoBlockWidth = getPromoBlockWidth();
+        promoTrack.style.scrollBehavior = 'auto';
+        promoTrack.scrollLeft = promoBlockWidth;
+        promoTrack.style.scrollBehavior = 'smooth';
     });
 
-        /* =========================================
-       ARRASTO MANUAL COM O CURSOR/DEDO
-    ========================================= */
-    let arrastoAtivo = false;
-    let posInicialX = 0;
-    let offsetInicialArrasto = 0;
-    let arrastoMoveuBastante = false;
-
-    function larguraSlideComGap() {
-        const larguraSlide = promoTrack.children[0].getBoundingClientRect().width;
-        const gap = parseFloat(getComputedStyle(promoTrack).gap) || 0;
-        return larguraSlide + gap;
-    }
-
-    function offsetAtualDoIndex() {
-        return -(larguraSlideComGap() * promoIndex);
-    }
-
-    // Avança/recua sem loop para trás (recua só até ao slide 0)
-    function anteriorPromo() {
-        if (isPromoJumping) return;
-        if (promoIndex <= 0) {
-            moverPara(0, true);
-            return;
-        }
-        promoIndex--;
-        moverPara(promoIndex, true);
-    }
-
-    promoTrack.addEventListener('pointerdown', (e) => {
-        arrastoAtivo = true;
-        arrastoMoveuBastante = false;
-        posInicialX = e.clientX;
-        offsetInicialArrasto = offsetAtualDoIndex();
-
-        promoTrack.classList.add('arrastando');
-        promoTrack.setPointerCapture(e.pointerId);
-    });
-
-    promoTrack.addEventListener('pointermove', (e) => {
-        if (!arrastoAtivo) return;
-
-        const delta = e.clientX - posInicialX;
-        if (Math.abs(delta) > 5) arrastoMoveuBastante = true;
-
-        promoTrack.style.transform = `translateX(${offsetInicialArrasto + delta}px)`;
-    });
-
-    function finalizarArrasto(e) {
-        if (!arrastoAtivo) return;
-        arrastoAtivo = false;
-        promoTrack.classList.remove('arrastando');
-
-        const delta = e.clientX - posInicialX;
-        const limiar = larguraSlideComGap() / 4;
-
-        if (delta <= -limiar) {
-            proximoPromo();
-        } else if (delta >= limiar) {
-            anteriorPromo();
-        } else {
-            moverPara(promoIndex, true);
-        }
-    }
-
-    promoTrack.addEventListener('pointerup', finalizarArrasto);
-    promoTrack.addEventListener('pointerleave', (e) => { if (arrastoAtivo) finalizarArrasto(e); });
-    promoTrack.addEventListener('pointercancel', (e) => { if (arrastoAtivo) finalizarArrasto(e); });
-
-    // Impede que um clique no link abra a promoção logo após um arrasto real
-    promoTrack.addEventListener('click', (e) => {
-        if (arrastoMoveuBastante) {
-            e.preventDefault();
-            e.stopPropagation();
-            arrastoMoveuBastante = false;
-        }
-    }, true);
-
-        /* =========================================
-       LOOP INFINITO DAS MARCAS
-    ========================================= */
+    /* =========================================
+   LOOP INFINITO DAS MARCAS
+========================================= */
 
     const marcasContainer = document.getElementById('marcasContainer');
 
@@ -339,9 +276,9 @@ document.addEventListener('DOMContentLoaded', function () {
         marcasContainer.style.scrollBehavior = 'smooth';
     });
 
-        /* =========================================
-       PRODUTOS PATROCINADOS — Loop infinito + autoplay 5s
-    ========================================= */
+    /* =========================================
+   PRODUTOS PATROCINADOS — Loop infinito + autoplay 5s
+========================================= */
 
     const patrocinadosContainer = document.getElementById('patrocinadosContainer');
     const setaEsquerda = document.getElementById('setaEsquerda');

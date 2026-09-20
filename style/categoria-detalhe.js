@@ -154,6 +154,11 @@ document.addEventListener('DOMContentLoaded', function () {
     categoriaNomeEl.textContent = categoriaAtual.nome;
     categoriaNomeRepetidoEl.textContent = categoriaAtual.nome;
 
+    const verTodos = document.querySelector(".ver-todos-link");
+    if (verTodos) {
+        verTodos.href = `produtos.html?categoryId=${categoryId}`;
+    }
+
     /* =========================================
        GERA OS CARDS DE SUBCATEGORIA
     ========================================= */

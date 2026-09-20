@@ -53,6 +53,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .logo-nome {
@@ -599,37 +601,27 @@
     margin-bottom: 30px;
 }
 
-/* O SCROLL É NATIVO DO BROWSER — é isto que faz o "arrasto" funcionar sem JS */
 .promo-wrapper {
+    overflow: hidden;
     width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-
-    /* esconde a scrollbar (visual apenas, o scroll continua a funcionar) */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.promo-wrapper::-webkit-scrollbar {
-    display: none;
 }
 
 .promo-track {
     display: flex;
     gap: 24px;
-    cursor: grab;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 5px 2px 15px;
 }
 
-.promo-track.arrastando {
-    cursor: grabbing;
+.promo-track::-webkit-scrollbar {
+    display: none;
 }
 
 .promo-slide {
     flex: 0 0 calc((100% - 48px) / 3);
-    scroll-snap-align: start;
     border-radius: 12px;
     overflow: hidden;
 }
@@ -675,7 +667,6 @@
     transform: scale(1.2);
 }
 
-/* Responsividade */
 @media (max-width: 900px) {
     .promo-slide {
         flex: 0 0 calc((100% - 24px) / 2);
@@ -691,6 +682,7 @@
         flex: 0 0 100%;
     }
 }
+
 /* ===== Navegar por Marcas ===== */
 .carrossel-marcas {
     width: 100%;
@@ -1064,7 +1056,8 @@
     background-color: #e0e0e0;
 }
 
-.btn-carrinho {
+.btn-carrinho,
+.btn-ver-produto {
     width: 100%;
     padding: 12px;
     border: none;
@@ -1078,10 +1071,13 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-decoration: none;
+    box-sizing: border-box;
     transition: background-color 0.2s ease;
 }
 
-.btn-carrinho:hover {
+.btn-carrinho:hover,
+.btn-ver-produto:hover {
     background-color: #24a891;
 }
 
